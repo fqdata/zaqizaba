@@ -1,0 +1,14 @@
+[Unit]
+Description=TTYD
+After=syslog.target
+After=network.target
+
+[Service]
+ExecStart=/usr/local/ttyd/ttyd -p 8880 -t rendererType=webgl -t disableReconnect=true -t titleFixed="Webssh - Connect Your VPS Online" bash /usr/sbin/webssh
+Type=simple
+Restart=always
+User=webssh
+Group=webssh
+
+[Install]
+WantedBy=multi-user.target
