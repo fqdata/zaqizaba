@@ -105,16 +105,17 @@ TRAVFOLDER(){
 }
 
 DEFINITION_PATH() {
-    NAMEWITHDATE=$(TZ=Asia/Shanghai date "+%Y%m%d_%H%M%S")
+    NAMEWITHTIME=$(TZ=Asia/Shanghai date "+%H%M%S")
+    PATHWITHDATE=$(TZ=Asia/Shanghai date "+%Y%m%d")
     if [[ -f "${TASK_PATH}" ]]; then
-        LOCAL_PATH=$(CHANGE_NAME ${TASK_PATH} ${NAMEWITHDATE})
-        REMOTE_PATH="${DRIVE_DIR}${DEST_PATH_SUFFIX%/*}"
+        LOCAL_PATH=$(CHANGE_NAME ${TASK_PATH} ${NAMEWITHTIME})
+        REMOTE_PATH="${DRIVE_DIR}/${PATHWITHDATE}${DEST_PATH_SUFFIX%/*}"
     else
         KEEPPATH=$(pwd)
-        TRAVFOLDER ${TASK_PATH} ${NAMEWITHDATE}
+        TRAVFOLDER ${TASK_PATH} ${NAMEWITHTIME}
         LOCAL_PATH="${TASK_PATH}"
-        REMOTE_PATH="${DRIVE_DIR}${DEST_PATH_SUFFIX}"
-		cd ${KEEPPATH}
+        REMOTE_PATH="${DRIVE_DIR}/${PATHWITHDATE}${DEST_PATH_SUFFIX}"
+        cd ${KEEPPATH}
     fi
 }
 
