@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>Aria2</short>
+  <description>Aria2 BT监听端口</description>
+  <port protocol="tcp" port="6000-6999"/>
+  <port protocol="udp" port="6000-6999"/>
+  <port protocol="tcp" port="51413"/>
+  <port protocol="udp" port="51413"/>
+</service>
