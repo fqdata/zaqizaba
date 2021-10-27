@@ -79,7 +79,7 @@ OUTPUT_UPLOAD_LOG() {
 CHANGE_NAME(){
     TARGET_FILE_EXTENSION="${1##*.}"
     MIME=`file -b --mime-type ${1}`
-    EXT=$(grep "${MIME}" "/etc/mime.types" | sed '/^#/ d' | grep -m 1 "${MIME}" | awk '{print $2}')
+    EXT=$(grep "${MIME}" "/usr/local/aria2/custommime.types" | sed '/^#/ d' | grep -m 1 "${MIME}" | awk '{print $2}')
     if [ "${TARGET_FILE_EXTENSION}" == "${EXT}" ]; then
         mv "${1}" "${1%.*}${2}.${TARGET_FILE_EXTENSION}"
         echo ${1%.*}${2}.${TARGET_FILE_EXTENSION}
