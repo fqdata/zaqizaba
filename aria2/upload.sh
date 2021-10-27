@@ -77,12 +77,17 @@ OUTPUT_UPLOAD_LOG() {
 }
 #修改文件名
 CHANGE_NAME(){
+    TARGET_FILE_BASE=$(basename "${1}")
     TARGET_FILE_EXTENSION="${1##*.}"
+    if [[ "$TARGET_FILE_BASE" == "$TARGET_FILE_EXTENSION" ]]; then
+        # This fixes the case where the target file has no extension
+        TARGET_FILE_EXTENSION=''
+    fi
     MIME=`file -b --mime-type ${1}`
     EXT=$(grep "${MIME}" "/usr/local/aria2/custommime.types" | sed '/^#/ d' | grep -m 1 "${MIME}" | awk '{print $2}')
-    if [ "${TARGET_FILE_EXTENSION}" == "${EXT}" ]; then
+    if [[ "${EXT}" == "" ]]; then
         mv "${1}" "${1%.*}${2}.${TARGET_FILE_EXTENSION}"
-        echo ${1%.*}${2}.${TARGET_FILE_EXTENSION}
+        echo ${1%.*}${2}.${TARGET_FILE_EXTENSION}        
     else
         mv "${1}" "${1%.*}${2}.${EXT}"
         echo ${1%.*}${2}.${EXT}
